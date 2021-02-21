@@ -51,16 +51,13 @@ def getPageContent(link):
 
 def getFileName(processedItem):
     name = processedItem['pubDate'] + processedItem['title']
-    name = name.replace(' ', '')
-    name = name.replace(':', '')
-    name = name.replace(',', '')
+    name = re.sub(r'[^a-zA-Z0-9]+', '', name)
     return name
 
 def getFeedName(url):
     name = url.replace('http://', '')
     name = name.replace('https://', '')
-    name = name.replace('/', '-')
-    name = name.replace('.', '')
+    name = re.sub(r'[^a-zA-Z0-9]+', '', name)
     name = today.strftime("%Y%m%d-") + name + '.json'
     return name
 
@@ -71,7 +68,7 @@ def saveContent(rssItem):
         if (key in ['title', 'description', 'link', 'pubDate']):
             processedItem[key] = rssItem[key]
             
-    processedItem['content'] = getPageContent(processedItem['link'], )
+    # processedItem['content'] = getPageContent(processedItem['link'], )
     filename = getFileName(processedItem);
     path = os.path.join(dataPath, 'content', filename + ".json") 
     saveJsonFile(processedItem, path)
