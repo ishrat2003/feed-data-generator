@@ -50,7 +50,7 @@ def getPageContent(link):
     return text
 
 def getFileName(processedItem):
-    name = processedItem['pubDate'] + processedItem['title']
+    name = processedItem['pubDate'][5:7] + processedItem['pubDate'][8:11] + processedItem['pubDate'][12:16] + processedItem['title'][0:30]
     name = re.sub(r'[^a-zA-Z0-9]+', '', name)
     return name
 
